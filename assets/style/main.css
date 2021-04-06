@@ -10695,4 +10695,12 @@ main {
   flex-grow: 1;
 }
 
+
+
+
+.bottom{
+  display: flex !important;
+  position: absolute !important;
+  bottom:0 !important
+}
 /*# sourceMappingURL=main.css.map */

@@ -20,16 +20,21 @@ export default class Trivia {
     return /*html*/`
             <div class="card col-md-3 m-5" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">${this.question}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${this.category}</h6>
+                <div class="card-header bg-info">
+                  <h5 class="card-title">${this.question}</h5>
+                </div>
 
-                    <p>${this.allAnswers}</p>
+                    <h6 class="card-subtitle mt-2 text-muted">${this.category}</h6>
+
+                    <ul> 
+                    ${this.allAnswers()}
+                    </ul>
 
 
 
 
 
-<div><a href="#" class="btn btn-primary title="check" type="button" data-toggle="modal"  data-target="#view-answer${this.id}">Check answer</a> </div>
+<div class="bottom"><a href="#" class="btn btn-primary  title="check" type="button" data-toggle="modal"  data-target="#view-answer${this.id}">Check answer</a> </div>
 
                 
                      <div class="modal fade" id="view-answer${this.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -39,8 +44,10 @@ export default class Trivia {
                     <div class="modal-header" style="align-self: center;">
                         <h5 class="modal-title text-dark" id="exampleModalLabel">${this.correct_answer}</h5>
                     </div>
-                    <div style="align-self: center;">
-                        <button type="button" title="Keep" class="btn btn-info mx-5 my-3"
+
+                    <div >
+
+                        <button type="button" title="Keep" class="btn btn-info  mx-5 my-3"
                             data-dismiss="modal">Close</button>
 
                     </div>
@@ -53,12 +60,34 @@ export default class Trivia {
   }
 
   allAnswers() {
-    answers = []
-    answers.push(correct_answer)
-    answers.push(incorrect_answers)
-    shuffledanswers = shuffle(answers.slice())
+    let answers = []
+    answers.push(this.correct_answer)
+    answers.push(...this.incorrect_answers)
 
-    return answers
+    return this.shuffle(answers)
+  }
+
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    let template = ""
+    array.forEach(banana => {
+      template += `<li>${banana}</li>`
+    });
+    return template;
   }
 
 }
